@@ -1,5 +1,5 @@
 #include <stdbool.h> /* for bool */
-#include <stdio.h> /* for stderr, fputs() */
+#include <stdio.h> /* for stderr, stdin, fputs() */
 #include <string.h> /* for memset(), strcpy() */
 #include <sys/types.h> /* for size_t, ssize_t */
 
@@ -132,7 +132,11 @@ bool solver_initialize(struct solver_context* solver, char* executable_name, cha
 
     /* Load the input image file */
     } else {
-        strcpy(solver->image_info->filename, image_filename);
+        if (image_filename[0] == '-' && image_filename[1] == '\0') {
+            solver->image_info->file = stdin;
+        } else {
+            strcpy(solver->image_info->filename, image_filename);
+        }
         if ((solver->image = ReadImage(solver->image_info, solver->exception)) == NULL) {
             CatchException(solver->exception);
 

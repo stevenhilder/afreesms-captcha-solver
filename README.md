@@ -19,4 +19,6 @@ make test # optional
 
 ```bash
 ./solve tests/images/532876.png # prints "532876"
+
+./solve - < tests/images/532876.png # equivalent
 ```
